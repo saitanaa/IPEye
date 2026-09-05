@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>>_IPEye Settings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('fond.png');
+            background-size: cover; /* Ajuste la taille de l'image pour couvrir toute la fenêtre */
+            background-position: center; /* Centre l'image horizontalement et verticalement */
+            color: #fff; /* Couleur du texte */
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 10 auto;
+            padding: 20px;
+            text-align: center;
+            height: 100vh; /* Définit la hauteur de la page à 100% de la hauteur de la fenêtre du navigateur */
+        }
+
+        .title {
+            font-size: 50px;
+            font-weight: bold;
+            color: purple;
+            margin-bottom: 20px;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            font-weight: bold;
+            color: red;
+            margin-bottom: 10px;
+        }
+
+        .version {
+            font-size: 15px;
+            font-weight: bold;
+            color: rgb(255, 230, 0);
+            margin-bottom: 20px;
+        }
+
+        .link-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+            background-color: #FFA500; /* Orange */
+            color: #000;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+            width: 80%;
+            margin: 0 auto;
+            margin-bottom: 10px;
+        }
+
+        .link-button:hover {
+            background-color: #FFD700; /* Orange clair au survol */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="title">IPEye</h1>
+            <p class="subtitle">>_ Paramètres IPEye </p>
+            <p class="version">v0.2</p>
+        </header>
+    
+        <button class="link-button" onclick="window.location.href='index.html'">Retour à l'accueil</button>
+    
+        <form class="form-container" enctype="multipart/form-data">
+            <input type="file" id="imageUpload" style="display: none;">
+            <button class="link-button" onclick="document.getElementById('imageUpload').click()">Choisir une image de fond / En developpement...</button>
+        </form>
+    </div>
+    
+    <script>
+        // Fonction pour changer le fond de la page index.html
+        document.getElementById('imageUpload').addEventListener('change', function() {
+            var file = this.files[0];
+            var reader = new FileReader();
+    
+            reader.onload = function(e) {
+                // Stocker le fond sélectionné dans le sessionStorage
+                sessionStorage.setItem('backgroundImage', e.target.result);
+                // Rediriger vers la page index.html
+                window.location.href = 'index.html';
+            };
+    
+            reader.readAsDataURL(file);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>>_ IPEye V3</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('fond.png');
+            background-size: cover; /* Ajuste la taille de l'image pour couvrir toute la fenêtre */
+            background-position: center; /* Centre l'image horizontalement et verticalement */
+            color: #fff; /* Couleur du texte */
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 10 auto;
+            padding: 23px;
+            text-align: center;
+            height: 92vh; /* Définit la hauteur de la page à 100% de la hauteur de la fenêtre du navigateur */
+        }
+
+        .title {
+            font-size: 40px;
+            font-weight: bold;
+            color: purple;
+            margin-bottom: 20px;
+        }
+
+        .subtitle {
+            font-size: 17px;
+            font-weight: bold;
+            color: red;
+            margin-bottom: 10px;
+        }
+
+        .version {
+            font-size: 14px;
+            font-weight: bold;
+            color: rgb(255, 230, 0);
+            margin-bottom: 20px;
+        }
+
+        .form-container {
+            margin-bottom: 15px;
+        }
+
+        .ip-label {
+            font-size: 18px;
+            font-weight: bold;
+            color: #4B0082;
+        }
+
+        .ip-entry {
+            padding: 8px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+            width: 200px;
+            margin-right: 10px;
+            max-width: 100%;
+        }
+
+        .btn-locate,
+        .btn-public-ip {
+            padding: 10px 10px;
+            font-size: 18px;
+            border-radius: 5px;
+            border: none;
+            background-color: #8A2BE2;
+            color: #000;
+            cursor: pointer;
+            max-width: 90%;
+        }
+
+        .btn-public-ip {
+            background-color: #ff7300;
+        }
+
+        .result-container {
+            margin-top: 20px;
+        }
+
+        .loading-label {
+            font-size: 16px;
+            color: #b4b3b1;
+        }
+
+        .error-label {
+            font-size: 14px;
+            color: red;
+            margin-top: 5px;
+        }
+
+        .link-button {
+            padding: 11px 21px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+            background-color: #ff7300;
+            color: #000;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .link-button:hover {
+            background-color: #FFD700;
+        }
+
+        @media screen and (max-width: 600px) {
+            .ip-entry {
+                width: 90%;
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+
+            .btn-locate,
+            .btn-public-ip {
+                width: 90%;
+            }
+        }
+
+        #boutonReglages {
+            padding: 11px 21px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+            background-color: #31d300;
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 18px; /* Réduction de la taille en longueur */
+            font-size: 16px; /* Taille de la police */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="title">IPEye</h1>
+            <p class="subtitle">Veuillez noter que les informations ne sont pas toujours précises !</p>
+            <p class="subtitle">Pourquoi les informations peuvent être incorrectes ?</p>
+            <p class="version">Voici les raisons :</p>
+            <p class="version">- L'API : L'API peut parfois fournir des informations incorrectes à IPEye.</p>
+            <p class="version">- Le Fournisseur d'accès internet (FAI) : Le FAI peut parfois être imprécis sur plusieurs informations, telles que la localisation de l'IP, l'appareil connecté et l'utilisation d'un VPN.</p>
+            <p class="version">- La cible : La cible peut modifier certaines informations, ce qui peut entraîner des données incorrectes.</p>
+
+        <!-- Bouton "Réglages" avec un nouvel identifiant -->
+        <button id="boutonReglages" onclick="window.location.href='reglages.html'">J'ai compris</button>
+
+    </div>
+</body>
+<p class="subtitle"></p>
+</html>

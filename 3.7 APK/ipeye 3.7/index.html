@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>>_IPEye V3</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('fond.png');
+            background-size: cover; /* Ajuste la taille de l'image pour couvrir toute la fenêtre */
+            background-position: center; /* Centre l'image horizontalement et verticalement */
+            color: #fff; /* Couleur du texte */
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 10 auto;
+            padding: 23px;
+            text-align: center;
+            height: 92vh; /* Définit la hauteur de la page à 100% de la hauteur de la fenêtre du navigateur */
+        }
+
+        .title {
+            font-size: 40px;
+            font-weight: bold;
+            color: purple;
+            margin-bottom: 20px;
+        }
+
+        .subtitle {
+            font-size: 17px;
+            font-weight: bold;
+            color: red;
+            margin-bottom: 10px;
+        }
+
+        .version {
+            font-size: 14px;
+            font-weight: bold;
+            color: rgb(255, 230, 0);
+            margin-bottom: 20px;
+        }
+
+        .form-container {
+            margin-bottom: 15px;
+        }
+
+        .ip-label {
+            font-size: 18px;
+            font-weight: bold;
+            color: #4B0082;
+        }
+
+        .ip-entry {
+            padding: 8px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+            width: 200px;
+            margin-right: 10px;
+            max-width: 100%;
+        }
+
+        .btn-locate,
+        .btn-public-ip {
+            padding: 10px 10px;
+            font-size: 18px;
+            border-radius: 5px;
+            border: none;
+            background-color: #8A2BE2;
+            color: #000;
+            cursor: pointer;
+            max-width: 90%;
+        }
+
+        .btn-public-ip {
+            background-color: #ff7300;
+        }
+
+        .result-container {
+            margin-top: 20px;
+        }
+
+        .loading-label {
+            font-size: 16px;
+            color: #b4b3b1;
+        }
+
+        .error-label {
+            font-size: 14px;
+            color: red;
+            margin-top: 5px;
+        }
+
+        .link-button {
+            padding: 11px 21px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+            background-color: #ff7300;
+            color: #000;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .link-button:hover {
+            background-color: #FFD700;
+        }
+
+        @media screen and (max-width: 600px) {
+            .ip-entry {
+                width: 90%;
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+
+            .btn-locate,
+            .btn-public-ip {
+                width: 90%;
+            }
+        }
+
+        #boutonReglages {
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 18px; /* Réduction de la taille en longueur */
+            font-size: 16px; /* Taille de la police */
+            background-color: #8A2BE2;
+            padding: 10px 10px;
+            font-size: 18px;
+            border-radius: 5px;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="title">IPEye</h1>
+            <p class="subtitle">>_ Localiser avec Android toutes les IP Réseau du monde.</p>
+            <p class="version">Saysaa - v3.7</p>
+        </header>
+        <div class="form-container">
+            <label class="ip-label" for="ip-entry">Entrer une Adresse IP :</label>
+            <input type="text" id="ip-entry" class="ip-entry">
+            <button class="btn-locate" onclick="locateIp()">Localiser l'IP</button>
+        </div>
+
+        <div class="result-container">
+            <p id="result-text" class="loading-label"></p>
+            <p id="error-text" class="error-label"></p>
+        </div>
+
+        <div class="form-container">
+            <button class="btn-public-ip" onclick="getPublicIp()">Obtenir mon IP Publique</button>
+        </div>
+
+        <button id="boutonReglages" onclick="window.location.href='reglages.html'">Réglages</button>
+        <a href="https://t.me/ipeyedownload" class="link-button">Rejoindre le Canal</a>
+    </div>
+
+    <script>
+        function locateIp() {
+            var ip = document.getElementById("ip-entry").value;
+            document.getElementById("result-text").innerText = "Récupération des informations sur l'IP...";
+
+            // Appeler l'API pour localiser l'IP
+            fetch('http://ip-api.com/json/' + ip)
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    var vpnStatus = data.proxy ? 'Oui' : 'Non';
+                    var result = `Résultats de  l'analyse :\n | - IP : ${data.query}\n| - Pays : ${data.country}\n| - Région : ${data.regionName}\n| - Ville : ${data.city}\n| - FAI : ${data.isp}\n| - VPN : ${vpnStatus}\n| - Latitude: ${data.lat}\n| - Longitude: ${data.lon}\n| - OS : ${data.os || 'Impossible de récupérer cette information'}\n| - Connecté : ${data.is_device_on ? 'On' : 'Off'}`;
+                    document.getElementById("result-text").innerText = result;
+                } else {
+                    document.getElementById("result-text").innerText = "E1 : Impossible de localiser l'IP";
+                }
+            })
+            .catch(error => {
+                document.getElementById("result-text").innerText = "E2 : Impossible de récupérer les informations sur l'IP";
+            });
+        }
+
+        function getPublicIp() {
+            document.getElementById("result-text").innerText = "Récupération de l'adresse IP publique...";
+
+            // Appeler l'API pour obtenir l'IP publique
+            fetch('https://httpbin.org/ip')
+            .then(response => response.json())
+            .then(data => {
+                var publicIp = data.origin || 'E4 : Impossible de récupérer l\'adresse IP publique';
+                document.getElementById("result-text").innerText = ` Votre adresse IP Publique : ${publicIp}`;
+            })
+            .catch(error => {
+                document.getElementById("result-text").innerText = "E3 : Impossible de récupérer l'adresse IP publique";
+            });
+        }
+    </script>
+</body>
+<p class="subtitle"></p>
+</html>
